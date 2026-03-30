@@ -16,7 +16,9 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return health check message', () => {
-      expect(appController.getHealthCheck()).toBe('¡Servidor de la EIE funcionando correctamente!');
+      expect(appController.getHealthCheck()).toBe(
+        '¡Servidor de la EIE funcionando correctamente!',
+      );
     });
   });
 });

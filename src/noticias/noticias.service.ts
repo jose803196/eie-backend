@@ -29,12 +29,14 @@ export class NoticiasService {
   }
 
   async findOne(id: number): Promise<Noticia> {
-        const noticia = await this.noticiasRepository.findOneBy({ id });
-        
-        if (!noticia) {
-            throw new NotFoundException(`La noticia con el ID #${id} no fue encontrada.`);
-        }
-        
-        return noticia;
+    const noticia = await this.noticiasRepository.findOneBy({ id });
+
+    if (!noticia) {
+      throw new NotFoundException(
+        `La noticia con el ID #${id} no fue encontrada.`,
+      );
     }
+
+    return noticia;
+  }
 }

@@ -13,7 +13,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('EIE Back-End')
-    .setDescription('Funcionalidad para el backend de la página web de la Escuela de Eléctrica de la Facultad de Ingeniería de la Universidad Central de Venezuela')
+    .setDescription(
+      'Funcionalidad para el backend de la página web de la Escuela de Eléctrica de la Facultad de Ingeniería de la Universidad Central de Venezuela',
+    )
     .setVersion('0.3.0')
     .addBearerAuth()
     .build();
@@ -23,4 +25,8 @@ async function bootstrap() {
 
   await app.listen(3000);
 }
-bootstrap();
+
+bootstrap().catch((err) => {
+  console.error('Bootstrap failed:', err);
+  process.exit(1);
+});

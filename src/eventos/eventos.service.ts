@@ -12,7 +12,6 @@ export class EventosService {
     private readonly eventoRepository: Repository<Evento>,
   ) {}
 
-  
   async findLatest() {
     const eventos = await this.eventoRepository.find({
       order: {
@@ -39,7 +38,7 @@ export class EventosService {
   }
 
   private transformEventos(eventos: Evento[]) {
-    return eventos.map(evento => {
+    return eventos.map((evento) => {
       const fecha = new Date(evento.eventDate);
       return {
         id: evento.id,
@@ -48,19 +47,24 @@ export class EventosService {
         date: fecha.getDate(),
         day: fecha.toLocaleDateString('es-ES', { weekday: 'long' }),
         month: fecha.toLocaleDateString('es-ES', { month: 'long' }),
-        hour: fecha.toLocaleTimeString('es-ES', { hour: 'numeric', minute: '2-digit', hour12: true }),
+        hour: fecha.toLocaleTimeString('es-ES', {
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true,
+        }),
       };
     });
   }
 
   async findOne(id: number): Promise<Evento> {
-      const evento = await this.eventoRepository.findOneBy({ id });
-      
-      if (!evento) {
-          throw new NotFoundException(`El evento con el ID #${id} no fue encontrado.`);
-      }
-      
-      return evento;
-  }
+    const evento = await this.eventoRepository.findOneBy({ id });
 
+    if (!evento) {
+      throw new NotFoundException(
+        `El evento con el ID #${id} no fue encontrado.`,
+      );
+    }
+
+    return evento;
+  }
 }

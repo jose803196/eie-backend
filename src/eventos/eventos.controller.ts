@@ -3,7 +3,7 @@ import { EventosService } from './eventos.service';
 import { CreateEventoDto } from './dtos/create-evento.dto';
 import { Param, ParseIntPipe } from '@nestjs/common';
 
-@Controller('eventos') 
+@Controller('eventos')
 export class EventosController {
   constructor(private readonly eventosService: EventosService) {}
 
@@ -12,11 +12,11 @@ export class EventosController {
   findAll() {
     return this.eventosService.findAll();
   }
-  
+
   // Endpoint para crear eventos: POST /eventos
   @Post()
   create(@Body() createEventoDto: CreateEventoDto) {
-      return this.eventosService.create(createEventoDto);
+    return this.eventosService.create(createEventoDto);
   }
 
   // Endpoint para obtener un evento por ID: GET /eventos/:id

@@ -16,7 +16,7 @@ import { PersonasModule } from './personas/personas.module';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'escuela.sqlite',
-      autoLoadEntities: true, 
+      autoLoadEntities: true,
       synchronize: true,
     }),
 

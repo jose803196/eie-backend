@@ -11,5 +11,5 @@ export class CreateEventoDto {
 
   @IsDateString()
   @IsNotEmpty()
-  eventDate: string; 
+  eventDate: string;
 }

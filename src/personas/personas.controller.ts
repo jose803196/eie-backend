@@ -1,5 +1,16 @@
 // src/personas/personas.controller.ts
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe, DefaultValuePipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  ParseIntPipe,
+  DefaultValuePipe,
+} from '@nestjs/common';
 import { PersonasService } from './personas.service';
 import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
@@ -18,7 +29,7 @@ export class PersonasController {
   findAll(
     @Query('categoria') categoria?: CategoriaPersona,
     @Query('search', new DefaultValuePipe('')) search?: string,
-    @Query('sort', new DefaultValuePipe('ASC')) sort?: 'ASC' | 'DESC'
+    @Query('sort', new DefaultValuePipe('ASC')) sort?: 'ASC' | 'DESC',
   ) {
     return this.personasService.findAll(categoria, search, sort);
   }
@@ -29,7 +40,10 @@ export class PersonasController {
   }
 
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updatePersonaDto: UpdatePersonaDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updatePersonaDto: UpdatePersonaDto,
+  ) {
     return this.personasService.update(id, updatePersonaDto);
   }
 
