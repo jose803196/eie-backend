@@ -49,3 +49,6 @@ $RECYCLE.BIN/
 
 # Archivos de paquetes de editores
 *.tsbuildinfo
+
+# Ideas para mejorar
+ideas.md
