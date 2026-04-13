@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { NoticiasModule } from './noticias/noticias.module';
@@ -13,11 +13,19 @@ import { PersonasModule } from './personas/personas.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
 
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'escuela.sqlite',
-      autoLoadEntities: true,
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        url: configService.get('DATABASE_URL'),
+        // Esta parte de SSL es OBLIGATORIA para conectar a Render desde fuera
+        ssl: {
+          rejectUnauthorized: false,
+        },
+        autoLoadEntities: true,
+        synchronize: true, // Esto creará las tablas automáticamente en Postgres
+      }),
     }),
 
     NoticiasModule,

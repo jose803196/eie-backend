@@ -32,10 +32,25 @@ export class EventosService {
     return this.transformEventos(eventos);
   }
 
-  create(createEventoDto: CreateEventoDto): Promise<Evento> {
-    const nuevoEvento = this.eventoRepository.create(createEventoDto);
+  async create(createEventoDto: CreateEventoDto): Promise<Evento> {
+    console.log("Fecha recibida del DTO:", createEventoDto.eventDate);
+    // Convertimos el string a objeto Date manualmente para validar
+    const fecha = new Date(createEventoDto.eventDate);
+
+    // Si la fecha es inválida, lanzamos un error claro antes de tocar la DB
+    if (isNaN(fecha.getTime())) {
+        console.error("Error: La fecha no se pudo convertir a objeto Date.");
+        throw new Error('El formato de fecha proporcionado es inválido.');
+    }
+
+    const nuevoEvento = this.eventoRepository.create({
+      title: createEventoDto.title,
+      content: createEventoDto.content,
+      eventDate: new Date(createEventoDto.eventDate).toISOString() // Asegura formato ISO
+    });
+    
     return this.eventoRepository.save(nuevoEvento);
-  }
+}
 
   private transformEventos(eventos: Evento[]) {
     return eventos.map((evento) => {

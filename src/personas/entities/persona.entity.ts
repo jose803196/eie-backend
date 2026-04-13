@@ -4,21 +4,21 @@ import { CategoriaPersona } from '../enums/categoria-persona.enum';
 @Entity()
 export class Persona {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  nombre: string;
+  nombre!: string;
 
   @Column()
-  descripcion: string;
+  descripcion!: string;
 
   @Column()
-  imagen: string;
+  imagen!: string;
 
   @Column({
     type: 'simple-enum',
     enum: CategoriaPersona,
     default: CategoriaPersona.PROFESORES,
   })
-  categoria: CategoriaPersona;
+  categoria!: CategoriaPersona;
 }

@@ -3,14 +3,14 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class Evento {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  title: string;
+  title!: string;
 
   @Column()
-  content: string;
+  content!: string;
 
-  @Column({ type: 'datetime' })
-  eventDate: Date;
+  @Column({ type: 'timestamp' })
+  eventDate!: Date;
 }

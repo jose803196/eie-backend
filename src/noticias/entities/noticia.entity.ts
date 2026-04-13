@@ -3,17 +3,17 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class Noticia {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  title: string;
+  title!: string;
 
   @Column()
-  date: string;
+  date!: string;
 
   @Column()
-  content: string;
+  content!: string;
 
   @Column({ default: 'https://ejemplo.com/imagen.jpg' })
-  image: string;
+  image!: string;
 }

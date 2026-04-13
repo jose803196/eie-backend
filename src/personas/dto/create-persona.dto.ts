@@ -4,17 +4,17 @@ import { CategoriaPersona } from '../enums/categoria-persona.enum';
 export class CreatePersonaDto {
   @IsString()
   @IsNotEmpty()
-  nombre: string;
+  nombre!: string;
 
   @IsString()
   @IsNotEmpty()
-  descripcion: string;
+  descripcion!: string;
 
   @IsUrl()
   @IsNotEmpty()
-  imagen: string;
+  imagen!: string;
 
   @IsEnum(CategoriaPersona)
   @IsNotEmpty()
-  categoria: CategoriaPersona;
+  categoria!: CategoriaPersona;
 }
