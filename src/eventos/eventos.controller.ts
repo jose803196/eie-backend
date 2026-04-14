@@ -15,6 +15,11 @@ export class EventosController {
     return this.eventosService.findAll();
   }
 
+  @Get(':id') // <--- ¿ESTA LÍNEA ESTÁ AHÍ?
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.eventosService.findOne(id);
+  }
+
   @Get('latest') // ✅ SIN GUARDIA (Público para el inicio)
   findLatest() {
     return this.eventosService.findLatest();
