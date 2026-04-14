@@ -2,10 +2,13 @@ import { Controller, Get, Post, Body } from '@nestjs/common';
 import { EventosService } from './eventos.service';
 import { CreateEventoDto } from './dtos/create-evento.dto';
 import { Param, ParseIntPipe } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('eventos')
 export class EventosController {
   constructor(private readonly eventosService: EventosService) {}
+  @UseGuards(JwtAuthGuard)
 
   // Endpoint para la página de archivo: GET /eventos
   @Get()

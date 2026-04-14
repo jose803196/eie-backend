@@ -1,4 +1,3 @@
-// src/personas/personas.controller.ts
 import {
   Controller,
   Get,
@@ -15,10 +14,14 @@ import { PersonasService } from './personas.service';
 import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
 import { CategoriaPersona } from './enums/categoria-persona.enum';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('personas')
 export class PersonasController {
   constructor(private readonly personasService: PersonasService) {}
+
+  @UseGuards(JwtAuthGuard)
 
   @Post()
   create(@Body() createPersonaDto: CreatePersonaDto) {
