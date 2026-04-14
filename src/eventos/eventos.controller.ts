@@ -9,29 +9,26 @@ import { Delete } from '@nestjs/common';
 @Controller('eventos')
 export class EventosController {
   constructor(private readonly eventosService: EventosService) {}
-  @UseGuards(JwtAuthGuard)
 
-  // Endpoint para la página de archivo: GET /eventos
-  @Get()
+  @Get() // ✅ SIN GUARDIA (Público para que la web lo lea)
   findAll() {
     return this.eventosService.findAll();
   }
 
-  // Endpoint para crear eventos: POST /eventos
+  @Get('latest') // ✅ SIN GUARDIA (Público para el inicio)
+  findLatest() {
+    return this.eventosService.findLatest();
+  }
+
+  @UseGuards(JwtAuthGuard) // 🔒 CON GUARDIA (Protegido para la secretaria)
   @Post()
   create(@Body() createEventoDto: CreateEventoDto) {
     return this.eventosService.create(createEventoDto);
   }
 
-  // Endpoint para obtener un evento por ID: GET /eventos/:id
-  @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.eventosService.findOne(id);
-  }
-
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard) // 🔒 CON GUARDIA (Protegido para la secretaria)
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.eventosService.remove(id);
+  remove(@Param('id') id: string) {
+    return this.eventosService.remove(+id);
   }
 }
