@@ -39,4 +39,12 @@ export class NoticiasService {
 
     return noticia;
   }
+  
+  async remove(id: number): Promise<void> {
+  const result = await this.noticiasRepository.delete(id);
+  // Si no se borró nada (porque el ID no existe), lanzamos error
+  if (result.affected === 0) {
+    throw new NotFoundException(`Noticia con ID #${id} no encontrada`);
+  }
+  }
 }

@@ -82,4 +82,11 @@ export class EventosService {
 
     return evento;
   }
+
+  async remove(id: number): Promise<void> {
+  const result = await this.eventoRepository.delete(id);
+  if (result.affected === 0) {
+    throw new NotFoundException(`Evento con ID #${id} no encontrado`);
+  }
+  }
 }

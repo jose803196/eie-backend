@@ -10,6 +10,7 @@ import { NoticiasService } from './noticias.service';
 import { Noticia } from './entities/noticia.entity';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { Delete } from '@nestjs/common';
 
 @Controller('noticias')
 export class NoticiasController {
@@ -30,4 +31,10 @@ export class NoticiasController {
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.noticiasService.findOne(id);
   }
+
+  @UseGuards(JwtAuthGuard) // 🔒 Solo con Token
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.noticiasService.remove(id);
+}
 }
